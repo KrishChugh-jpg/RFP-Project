@@ -1,0 +1,3 @@
+export const UPDATE_NAME = 'UPDATE_NAME'
+export const UPDATE_ISLOGIN = 'UPDATE_ISLOGIN'
+export const UPDATE_USER_OBJ = 'UPDATE_USER_OBJ'
