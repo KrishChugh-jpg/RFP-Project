@@ -1,35 +1,35 @@
-const Vendor = require("../models/vendor.model");
+const Quote = require("../models/rfp_quotes.model");
 
-const createVendor = async (req, res) => {
+const createQuote = async (req, res) => {
   try {
-    const vendor = await Vendor.create(req.body);
-    res.status(201).json(vendor);
+    const Quotes = await Quote.create(req.body);
+    res.status(201).json(Quotes);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-const updateVendor = async (req, res) => {
+const updateQuote = async (req, res) => {
   const { userId } = req.params;
   try {
-    const vendor = await Vendor.findOneAndUpdate({ userId }, req.body, { new: true });
-    res.status(200).json(vendor);
+    const Quotes = await Quote.findOneAndUpdate({ userId }, req.body, { new: true });
+    res.status(200).json(Quotes);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-const getVendors = async (req, res) => {
+const getQuotes = async (req, res) => {
   try {
-    const vendors = await Vendor.find();
-    res.status(200).json(vendors);
+    const Quotes = await Quote.find({isActive:1});
+    res.status(200).json(Quotes);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
 module.exports = {
-  createVendor,
-  updateVendor,
-  getVendors,
+  createQuote,
+  updateQuote,
+  getQuotes,
 };

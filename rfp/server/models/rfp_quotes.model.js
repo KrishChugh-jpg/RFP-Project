@@ -1,20 +1,26 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const vendorSchema = new Schema({
+const quotesSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
     unique: true,
   },
-  vendorName: String,
-  vendorItemDesc: String,
-  vendorItemQuantity: Number,
-  vendorTotalCost: Number,
-  vendorCategory: String,
+  vendor: {type:String,ref:'Vendor'},
+  itemDesc: String,
+  itemQuantity: Number,
+  totalCost: Number,
+  category: {type:String,ref:'Category'},
+  rfp:{
+    type:String,
+    required:true,
+    ref:'RFP'
+  },
+  isActive:Number
 });
 
-const Vendor = mongoose.model("Vendor", vendorSchema);
+const Quotes = mongoose.model("Quotes", quotesSchema);
 
-module.exports = Vendor;
+module.exports = Quotes;

@@ -1,32 +1,33 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../Controllers/user.controller');
-// const vendorController = require('../Controllers/vendor.controller');
-const categoryController = require('../Controllers/category.controller');
-const rfpController = require('../Controllers/rfp.controller');
 
-// User routes
-// router.post('/login', userController.loginUser);
-// router.post('/rfpCreate', userController.rfpCreate);
-// router.post('/categoryCreate', userController.categoryCreate);
-// router.post('/categoryRfpCreate', userController.categoryRfpCreate);
-// router.post('/signup', userController.signupUser);
-// router.get('/vendor', userController.vendorUser);
-// router.get('/admin', userController.adminUser);
-// router.get('/profile/:email', userController.getProfile);
-// router.patch('/profile/:email', userController.updateProfile);
+// login route
+router.post('/login',userController.loginUser);
+router.post('/rfpCreate',userController.rfpCreate);
+router.post('/categoryCreate',userController. categoryCreate);
+router.post('/categoryRfpCreate',userController.categoryRfpCreate);
+//signup route
+router.post('/signup',userController.signupUser);
+router.get('/vendor',userController.vendorUser);
+router.get('/admin',userController.adminUser);
+
+router.get('/profile/:email',userController.getProfile);
 
 
 
-// Category routes
-router.post('/createCategory', categoryController.createCategory);
-router.put('/updateCategory/:categoryNumber', categoryController.updateCategory);
-router.get('/getCategories', categoryController.getCategories);
+//reset-password validate route
+router.post('/reset-validate',userController.validateReset);
 
-// RFP routes
-router.post('/createRFP', rfpController.createRFP);
-router.put('/updateRFP/:rfpId', rfpController.updateRFP);
-router.get('/getRFPs', rfpController.getRFPs);
+//change password route
+
+
+//user profile routes
+router.get('/profile/:email',userController.getProfile);
+router.patch('/profile/:email',userController.updateProfile);
+
+
+
 
 
 module.exports = router;

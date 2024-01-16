@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const categorySchema = new Schema({
-  categoryNumber: {
-    type: Number,
+  categoryId: {
+    type: Schema.Types.ObjectId,
     required: true,
     unique: true,
   },
   categoryName: String,
-  isActive: Boolean,
+  isActive: Number,
 });
 
 const Category = mongoose.model("Category", categorySchema);

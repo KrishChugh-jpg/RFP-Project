@@ -4,6 +4,9 @@ const cors = require("cors");
 const app = express();
 require("dotenv").config();
 const userRoutes = require("./Routes/user.routes.js");
+const categoryRoutes = require('./Routes/category.routes.js');
+const rfpRoutes = require('./Routes/rfp.routes.js');
+const quoteRoutes = require('./Routes/quotes.routes.js');
 
 // middleware
 app.use(express.json());
@@ -27,3 +30,6 @@ mongoose
 
 //api routes
 app.use("/api/user", userRoutes);
+app.use('/api/category',categoryRoutes);
+app.use('/api/rfp',rfpRoutes);
+app.use('/api/quote',quoteRoutes);
