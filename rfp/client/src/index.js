@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './Redux/Store/store';
+require('events').EventEmitter.defaultMaxListeners = 15
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
