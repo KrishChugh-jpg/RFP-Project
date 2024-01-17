@@ -59,7 +59,13 @@ const deleteCategory = async (req,res)=>{
 
 const getCategories = async (req, res) => {
   try {
-    const categories = await Category.find({isActive:1});
+    const {all} = req.params;
+    let categories = null;
+    if(!all){
+      categories = await Category.find({isActive:1});
+    }else{
+      categories = await Category.find();
+    }
     res.status(200).json(categories);
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -24,7 +24,6 @@ const RfpList = () => {
             flexDirection: "initial",
             justifyContent:"normal"
           }}
-          // sx={{display:"flex",flexDirection:"column",justifyContent: "space-between",}}
         >
           <Typography
             sx={{
@@ -39,7 +38,7 @@ const RfpList = () => {
           </Typography>
           <LoadingButton
               type="submit"
-              onClick={() => nav("/categories/rfpcreate")}
+              onClick={() => nav("/categories?from=list")}
           
               sx={{
                 width: "170px",

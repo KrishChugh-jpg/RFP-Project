@@ -7,12 +7,13 @@ import AdminNavbar from "./components/adminNavbar";
 import Div from "./components/Shared/Div";
 import { useFormik } from "formik";
 import { categoryRfpCreate } from "./Api/login";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const RfpCreate = () => {
   const nav = useNavigate();
     const emailFromRedux = useSelector((state) => state?.user?.userObject?.email);
     const [data, setData] = React.useState([]);
+    const [searchParams,setSearchParams] = useSearchParams();
     const vendorOptions = data.map(vendor => vendor.firstName);
 
     React.useEffect(() => {
@@ -50,12 +51,18 @@ const RfpCreate = () => {
     onSubmit: async (value) => {
       console.log(emailFromRedux)
       console.log(value);
+      const categoryId = searchParams.get('categoryId');
       const body = {
-        ...value,
-        email:emailFromRedux,
+        category:categoryId,
+        itemName:value?.itemName,
+        itemDesc:value?.itemDesc,
+        quantity:value?.quantity,
+        lastDate: value?.lastDate,
+        maxPrice: value?.maxPrice,
+        minPrice: value?.minPrice,
       };
       const response = await categoryRfpCreate(body);
-      nav("/mainCategories");
+      nav("/rfpList");
     },
   });
   return (

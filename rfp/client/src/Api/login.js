@@ -81,7 +81,7 @@ export const categoryRfpCreate = async (body) => {
       throw Error("No body provided");
     }
     const response = await axios.post(
-      "http://localhost:4000/api/user/categoryRfpCreate",
+      "http://localhost:4000/api/rfp/create",
       body
     );
     console.log(response);

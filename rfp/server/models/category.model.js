@@ -9,7 +9,7 @@ const categorySchema = new Schema({
   },
   categoryName: String,
   isActive: Number,
-});
+},{strict:false});
 
 const Category = mongoose.model("Category", categorySchema);
 

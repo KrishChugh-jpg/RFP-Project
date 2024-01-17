@@ -5,36 +5,38 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import AdminNavbar from "./adminNavbar";
 import { LoadingButton } from "@mui/lab";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { categoryCreate } from "../Api/login";
 import { categoryValidations } from "../validations/createrfp";
 
-const categoriesList = ["automobiles", "stationary", "Groceries", "Hardware"];
+// const categoriesList = ["automobiles", "stationary", "Groceries", "Hardware"];
 
 const Categories = () => {
 
   const emailFromRedux = useSelector((state) => state?.user?.userObject?.email);
-  const [data, setData] = React.useState([]);
+  const [categoriesList, setCategoriesList] = React.useState([]);
+  const [searchParams,setSearchParams] = useSearchParams();
+  const from = searchParams.get('from');
 
   React.useEffect(() => {
     const getProfileData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/user/vendor`
+          `http://localhost:4000/api/category?all=1`
         );
-        console.log(response.data.data);
+        console.log(response.data);
 
-        setData(response.data.data);
+        setCategoriesList(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    if (emailFromRedux) {
-      getProfileData();
-    }
-  }, [emailFromRedux]);
+
+    getProfileData();
+
+  }, []);
 
 
 
@@ -42,19 +44,26 @@ const Categories = () => {
     const nav = useNavigate();
     const formik = useFormik({
       initialValues: {
-        vendorCategory: "",
+        vendorCategory: null,
       },
       enableReinitialize: true,
       validationSchema: categoryValidations,
       onSubmit: async (value) => {
-        console.log(emailFromRedux,"email is present")
-        console.log(value);
-        const body = {
-          ...value,
-          email:emailFromRedux,
-        };
-        const response = await categoryCreate(body);
-        nav("/mainCategories");
+        // console.log(emailFromRedux,"email is present")
+        // console.log(value);
+        // const body = {
+        //   ...value,
+        //   email:emailFromRedux,
+        // };
+        // const response = await categoryCreate(body);
+        // nav("/mainCategories");
+        console.log(from);
+                if(from==='list'){
+                  nav(`/categories/rfpcreate?categoryId=${formik.values.vendorCategory.categoryId}`)
+
+                }else{
+                  nav("/mainCategories")
+                }
       },
     });
 
@@ -119,6 +128,8 @@ const Categories = () => {
             color="secondary"
             name="vendorCategory"
             value={formik.values.vendorCategory}
+            getOptionLabel={(op)=>op?.categoryName}
+            isOptionEqualToValue={(o,v)=>o?.categoryId===v?.categoryId}
             onChange={(e, v) => formik.setFieldValue("vendorCategory", v)}
             renderInput={(params) => (
               <TextField

@@ -38,20 +38,18 @@ const CategoriesTable= () => {
     const getProfileData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/user/admin`
+          `http://localhost:4000/api/category`
         );
-        console.log(response.data.data)
+        console.log(response.data)
 
-        setData(response.data.data);
+        setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    if (emailFromRedux) {
       getProfileData();
-    }
-  }, [emailFromRedux]);
+  }, []);
 
   console.log(data)
 
@@ -74,9 +72,8 @@ const CategoriesTable= () => {
          data.map((admin, index) => (
           <StyledTableRow key={admin.id || index}>
             <StyledTableCell component="th" scope="row">{index + 1}</StyledTableCell>
-            <StyledTableCell>{admin.categories}</StyledTableCell>
-    
-            <StyledTableCell> <Chip label={val==="Deactivate"?"Active":"Deactivate"} color={val==="Deactivate"?"primary":"success"}></Chip></StyledTableCell>
+            <StyledTableCell>{admin.categoryName}</StyledTableCell>
+            <StyledTableCell> <Chip label={admin.isActive?"Active":"Deactivate"} color={val==="Deactivate"?"primary":"success"}></Chip></StyledTableCell>
             <StyledTableCell ><Typography sx={{color:"red", fontWeight:700,}}
             onClick = {() => {
               if(val === "Deactivate"){

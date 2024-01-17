@@ -12,6 +12,6 @@ export const rfpValidations = Yup.object().shape({
   
 });
 export const categoryValidations = Yup.object().shape({
-    vendorCategory: Yup.string()
+    vendorCategory: Yup.object()
     .required("Vendor Category is required"),
 });
